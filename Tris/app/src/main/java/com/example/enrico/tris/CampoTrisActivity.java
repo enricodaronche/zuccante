@@ -72,7 +72,7 @@ public class CampoTrisActivity extends AppCompatActivity  implements Observer, V
 
         for(int i=0;i<9;i++){
             Button b= ((Button)griglia.findViewWithTag(i+""));
-            b.setOnClickListener(gioco);
+            b.setOnClickListener(this);
             if(colorate.containsKey(i))b.setBackgroundColor(colorate.get(i)=='X'? Color.parseColor("#FF0000"):Color.parseColor("#00FF00"));
         }
         if(isFinita){
@@ -119,14 +119,18 @@ public class CampoTrisActivity extends AppCompatActivity  implements Observer, V
 
     @Override
     public void onClick(View view){
-        iniziaX=!iniziaX;
-        for(int i=0;i<9;i++){
-            ((Button)griglia.findViewWithTag(i+"")).setBackgroundResource(R.drawable.background_button);
-            ((Button)griglia.findViewWithTag(i+"")).setClickable(true);
+        if(view.getId()==R.id.restart) {
+            iniziaX = !iniziaX;
+            for (int i = 0; i < 9; i++) {
+                ((Button) griglia.findViewWithTag(i + "")).setBackgroundResource(R.drawable.background_button);
+                ((Button) griglia.findViewWithTag(i + "")).setClickable(true);
+            }
+            gioco.gioca(iniziaX);
+            restart.setClickable(false);
+            restart.setBackgroundColor(Color.LTGRAY);
+        }else{
+            gioco.gestisciMossa(Integer.parseInt((String)view.getTag()));
         }
-        gioco.gioca(iniziaX);
-        restart.setClickable(false);
-        restart.setBackgroundColor(Color.LTGRAY);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.Observable;
  * Created by Enrico on 04/02/2018.
  */
 
-public class GiocoTris extends Observable implements View.OnClickListener,Serializable{
+public class GiocoTris extends Observable implements Serializable{
 
     private boolean is1vs1;
     private boolean turnoX;
@@ -62,9 +62,7 @@ public class GiocoTris extends Observable implements View.OnClickListener,Serial
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        int pos=Integer.parseInt((String)view.getTag());
+    public void gestisciMossa(int pos) {
         if(statoTris.isEmpty(pos/3,pos%3)) {
             setChanged();
             notifyObservers((turnoX?"X":"O")+pos);
